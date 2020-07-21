@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const dbops = require('../db/dbops');
+const databaseOperations = require('../database/databaseOperations');
 
 const listRouter = express.Router();
 
@@ -16,7 +16,7 @@ listRouter.route('/')
     req.body.agent_id = req.query.agent_id;
     try
     {
-        let results = await dbops.addTodo(req.body);
+        let results = await databaseOperations.addTodo(req.body);
         if(results){
             res.status(200).json({status:"success",status_code:200});
         }
@@ -41,7 +41,7 @@ listRouter.route('/list')
 
     try
     {
-        let results = await dbops.getList(agent_id);
+        let results = await databaseOperations.getList(agent_id);
         res.status(200).json({list:results});
     }
     catch(error)

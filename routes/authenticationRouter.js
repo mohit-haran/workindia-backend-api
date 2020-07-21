@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const dbops = require('../db/dbops');
+const databaseOperations = require('../database/databaseOperations');
 const bcrypt = require('bcrypt');
 
 const authenticationRouter = express.Router();
@@ -28,7 +28,7 @@ authenticationRouter.route('/')
             try
             {
                 console.log(req.body.agent_id,hash);
-                let results = await dbops.addAgent(req.body.agent_id,hash);
+                let results = await databaseOperations.addAgent(req.body.agent_id,hash);
                 if(results)
                 {
                     res.json({status:"account created",status_code:200});
@@ -59,7 +59,7 @@ authenticationRouter.route('/auth')
 .post(async(req,res,next)=>{
     try
     {
-        let results = await dbops.authenticateAgent(req.body.agent_id);
+        let results = await databaseOperations.authenticateAgent(req.body.agent_id);
         if(results.length>0)
         {
             bcrypt.compare(req.body.password,results[0].password,(err,result)=>{

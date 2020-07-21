@@ -10,9 +10,9 @@ const pool = mysql.createPool({
     insecureAuth:true
 });
 
-let dbops = {};
+let databaseOperations = {};
 
-dbops.addAgent = (agent_id,passowrd) => {
+databaseOperations.addAgent = (agent_id,passowrd) => {
 
     return new Promise((resolve,reject)=>{
 
@@ -28,7 +28,7 @@ dbops.addAgent = (agent_id,passowrd) => {
     });
 };
 
-dbops.authenticateAgent = (agent_id) =>{
+databaseOperations.authenticateAgent = (agent_id) =>{
 
     return new Promise((resolve,reject)=>{
 
@@ -43,7 +43,7 @@ dbops.authenticateAgent = (agent_id) =>{
     });
 };
 
-dbops.getList = (agent_id) => {
+databaseOperations.getList = (agent_id) => {
 
     return new Promise((resolve,reject)=>{
 
@@ -58,7 +58,7 @@ dbops.getList = (agent_id) => {
     });
 };
 
-dbops.addTodo = (todo) =>{
+databaseOperations.addTodo = (todo) =>{
 
     return new Promise((resolve,reject)=>{
 
@@ -74,5 +74,5 @@ dbops.addTodo = (todo) =>{
     });
 };
 
-module.exports = dbops;
+module.exports = databaseOperations;
 
