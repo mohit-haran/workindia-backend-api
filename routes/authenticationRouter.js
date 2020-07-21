@@ -4,10 +4,17 @@ const dbops = require('../db/dbops');
 const bcrypt = require('bcrypt');
 
 const authenticationRouter = express.Router();
+authenticationRouter.use(bodyParser.json());
+authenticationRouter.use(bodyParser.urlencoded({extended:false}));
 
+//salt rounds for the password encryption
 const saltRounds = 10;
 
 authenticationRouter.route('/')
+.get((req,res,next)=>{
+    res.statusCode = 403;
+    res.send("GET request Forbidden on /app/agent");
+})
 .post((req,res,next)=>{
 
     bcrypt.hash(req.body.password,saltRounds,async(err,hash)=>{
@@ -29,15 +36,26 @@ authenticationRouter.route('/')
             }
             catch(error)
             {
-                res.statusCode = 500;
                 res.status(200).json({status:"Could not create account",status_code:500});                
             }
         }
         
     });  
+})
+.put((req,res,next)=>{
+    res.statusCode = 403;
+    res.send("PUT request Forbidden on /app/agent");
+})
+.delete((req,res,next)=>{
+    res.statusCode = 403;
+    res.send("DELETE request Forbidden on /app/agent");
 });
 
 authenticationRouter.route('/auth')
+.get((req,res,next)=>{
+    res.statusCode = 403;
+    res.send("GET request Forbidden on /app/agent/auth");
+})
 .post(async(req,res,next)=>{
     try
     {
@@ -55,7 +73,7 @@ authenticationRouter.route('/auth')
                     res.statusCode = 401;
                     res.json({status:"failure",status_code:401});                    
                 }
-            })
+            });
             
         }
         else
@@ -70,8 +88,14 @@ authenticationRouter.route('/auth')
         res.statusCode = 401;
         res.json({status:"failure",status_code:401});                
     } 
-
-
+})
+.put((req,res,next)=>{
+    res.statusCode = 403;
+    res.send("PUT request Forbidden on /app/agent/auth");
+})
+.delete((req,res,next)=>{
+    res.statusCode = 403;
+    res.send("DELETE request Forbidden on /app/agent/auth");
 })
 
 
