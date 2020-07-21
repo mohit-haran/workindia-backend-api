@@ -42,7 +42,7 @@ listRouter.route('/list')
     try
     {
         let results = await dbops.getList(agent_id);
-        res.status(200).json({status:"success",list:results});
+        res.status(200).json({list:results});
     }
     catch(error)
     {
